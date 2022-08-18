@@ -1,0 +1,41 @@
+.pokeball__logo {
+  height: 45px;
+  pointer-events: none;
+}
+  
+@media (prefers-reduced-motion: no-preference) {
+  .pokeball__logo {
+    animation: pokeball-logo-spin infinite 5s linear;
+  }
+}
+  
+.header {
+  background-color: #242540;
+    /* pokeballred-color: #F60B4A;
+      pokeballwhite-color: #F6F6F6;
+      pokeballblue-color: #242540; */
+  width: 100%;
+  height: 54px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.header__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+  
+@keyframes pokeball-logo-spin {
+  from {
+    transform: rotate(0deg);
+   }
+  to {
+    transform: rotate(360deg);
+  }
+}
+  

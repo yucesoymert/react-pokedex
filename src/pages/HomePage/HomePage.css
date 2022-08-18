@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+.pokemon-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    gap: 20px;
+    font-family: 'Montserrat', sans-serif;
+
+    padding: 0px 50px;
+}
+
+.load-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 30px;
+}
+
+.btn-load {
+    color: white;
+    border: none;
+    border-radius: 0.2rem;
+    font-weight: 500;
+    background-color: #242540;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.5rem 2rem;
+}
+
+.btn-load:hover {
+    color:  white;
+    background-color: #F60B4A;
+}
