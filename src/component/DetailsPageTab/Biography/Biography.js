@@ -22,7 +22,7 @@ export const Biography = () => {
             <div className="pokemon-data">
                 <div className="pokemon-text">
                 <h2 className="title">Pokémon Data</h2>
-                    <div>{pokemonSpecies.flavor_text_entries[2].flavor_text}</div>
+                    <div className="definition">{pokemonSpecies.flavor_text_entries[2].flavor_text}</div>
                 </div>
                 <div className="data-container">
                     <div className="grid-context">
