@@ -12,7 +12,7 @@ const HomePage = () => {
   const { data, fetchNextPage } = usePokemons();
   
   return (
-    <div>
+    <div className="homepage">
       <SearchBar />
       <div className="pokemon-list">
         {data.map((p, index) => (
@@ -20,7 +20,7 @@ const HomePage = () => {
         ))}
       </div>
       <div className="load-more">
-        <button className="btn-load" type="button" onClick={() => fetchNextPage()}>Load More</button>
+        <button className="load-btn" type="button" onClick={() => fetchNextPage()}>Load More</button>
       </div>
     </div>
   );
