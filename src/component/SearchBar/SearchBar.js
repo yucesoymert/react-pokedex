@@ -5,7 +5,7 @@ const SearchBar = () => {
         <div className="search-container">
             <input
                 className="search-bar"
-                placeholder="Search an item..."
+                placeholder="Search for a Pokemon..."
                 variant="outlined"
                 // value={value}
                 // onKeyPress={(e: React.KeyboardEvent) => {

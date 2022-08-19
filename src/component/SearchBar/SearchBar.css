@@ -1,6 +1,5 @@
 *, :after, :before {
     box-sizing: border-box;
-    border: 0 solid #e2e8f0;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -35,9 +34,19 @@ input {
     justify-content: center;
     align-items: center;
     text-align: center;
-    border-radius: 0.2rem;
     font-weight: 500;
-    padding: 0.5rem 3rem;
+    border: none;
+    appearance: none;
+    border-radius: 0.2rem;
+    transition: transform 250ms ease-in;
     color: white;
     background-color: #242540;
+    padding: 0.5rem 3rem;
+}
+
+.search-btn:hover {
+    transform: translateX(1px) translateY(-4px);
+    transition: transform 250ms ease-in;
+    box-shadow: -2px 3px 0.5rem darkgray;
+    background-color: #F60B4A;
 }
