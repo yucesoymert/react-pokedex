@@ -1,6 +1,3 @@
-//geçici deneme
-import pokeball from 'C:/Users/merty/bootcamp/react-pokedex/src/svg/pokeball.svg';
-
 import React from "react";
 import "./Biography.css"
 
