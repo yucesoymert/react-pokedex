@@ -1,8 +1,5 @@
 .biography-page {
     padding: 10px 70px;
-    position: absolute;
-    left: 0;
-    top: 0;
 }
 
 .pokemon-text {
@@ -13,7 +10,7 @@
 
 .title {
     padding: 0;
-    margin: 10px 0;
+    margin: 10px 0 15px 0;
 }
 
 .definition {
@@ -69,6 +66,14 @@
     text-transform: capitalize;
 }
 
+.ability-list {
+    display: grid;
+    grid-template-columns: 130px 130px 130px;
+    grid-template-rows: 10px 10px;
+    grid-column-gap: 15px;
+    grid-row-gap: 10px;;
+}
+
 .gender-types {
     display: flex;
     flex-direction: row;
@@ -77,19 +82,12 @@
     gap: 30px;
 }
 
-.ability-list {
-    display: grid;
-    grid-template-columns: 150px 150px;
-    grid-template-rows: 15px 15px;
-    grid-column-gap: 30px;
-    grid-row-gap: 15px;;
-}
-
 .gender-type {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 8px
 }
 
 .male {
@@ -104,13 +102,6 @@
 .gender-icon {
     width: 1rem;
     height: 1rem;   
-}
-
-.female {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
 }
 
 .training-container {
