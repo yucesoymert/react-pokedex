@@ -5,7 +5,7 @@ import { usePokemon } from '../../hooks/usePokemon';
 
 import { POKEMON_IMAGE_URL, POKEMON_TYPE_TO_COLOR } from '../../global/constants';
 
-const PokemonCard = ( {pokemon } ) => {
+const PokemonCard = ( { pokemon } ) => {
 
     const id = pokemon.url.slice(0, -1).replace("https://pokeapi.co/api/v2/pokemon/", "")
     const imageId = id.padStart(3, '0');
