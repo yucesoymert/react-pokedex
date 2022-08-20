@@ -3,17 +3,17 @@ import axios from "axios";
 
 export const usePokemonEvolution = (url) => {
 
-    const [data, setData] = useState(undefined);
+    const [chainUrl, setChainUrl] = useState();
     
     const getPokemonEvolution = async (evoChainUrl) => {
         const response = await axios.get(`${evoChainUrl}`)
 
-        setData(response.data)
+        setChainUrl(response.chainUrl)
     }
 
     useEffect(() => {
         getPokemonEvolution(url)
+        
+        return chainUrl
     }, [])
-
-    return data
 }
