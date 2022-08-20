@@ -1,7 +1,7 @@
 import React from "react";
-import "./Stats.css"
-
 import { useParams } from 'react-router-dom';
+
+import "./Stats.css"
 
 import { usePokemon } from "../../../hooks/usePokemon";
 
