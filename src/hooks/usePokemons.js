@@ -11,8 +11,8 @@ export const usePokemons = () => {
     
     const getPokemons = async (page) => {
         const response = await axios.get(API_URL, {params:{
-            limit: 20,
-            offset: page*20
+            limit: 45,
+            offset: page*45
         }})
 
         setData((previous) => {
