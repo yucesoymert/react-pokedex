@@ -76,7 +76,7 @@
     display: inline-block;
     flex: 1;
     color: black;
-    font-weight: 600;
+    font-weight: 400;
     text-decoration: none;
     appearance: none;
     padding: 10px;
@@ -100,6 +100,11 @@
     border-radius: 0px;
     transform: scaleY(1);
     transform-origin: bottom;
+}
+
+.active {
+    font-weight: 600;
+    border-bottom: 3px solid #F60B4A;
 }
 
 .info-container {
