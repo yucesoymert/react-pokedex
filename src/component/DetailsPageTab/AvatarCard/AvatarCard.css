@@ -36,18 +36,20 @@
     align-items: center;
     font-weight: 300;
     font-size: 1.6rem;
-    letter-spacing: 5px; 
+    letter-spacing: 4px; 
     pointer-events: none;
     color: rgb(255, 255, 255);
 }
 
-.pokemon-nam {
+.poke-name {
     width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     font-weight: 600;
     font-size: 2.3rem;
+    text-transform: capitalize;
+    letter-spacing: 4px;
     color: rgb(255, 255, 255);
 }
 
