@@ -19,7 +19,7 @@ export const Evolutions = () => {
     const pokemon = usePokemon(id)
     const pokemonSpecies = usePokemonSpecies(id)
     const evolution = usePokemonEvolution(pokemonSpecies?.evolution_chain?.url)
-    
+
     if (!pokemon) {
         return null;
     }
@@ -29,13 +29,13 @@ export const Evolutions = () => {
         return num?.toString().padStart(targetLength, 0);
     }
     
-    const newOne = evolution?.chain?.species?.url?.slice(0, -1).replace("https://pokeapi.co/api/v2/pokemon-species/", "")
-    const newTwo = evolution?.chain?.evolves_to[0]?.species?.url?.slice(0, -1).replace("https://pokeapi.co/api/v2/pokemon-species/", "")
-    const newThree = evolution?.chain?.evolves_to[0]?.evolves_to[0]?.species?.url?.slice(0, -1).replace("https://pokeapi.co/api/v2/pokemon-species/", "")
+    const newOne = evolution?.chain?.species?.url?.slice(0, -1)?.replace("https://pokeapi.co/api/v2/pokemon-species/", "")
+    const newTwo = evolution?.chain?.evolves_to[0]?.species?.url?.slice(0, -1)?.replace("https://pokeapi.co/api/v2/pokemon-species/", "")
+    const newThree = evolution?.chain?.evolves_to[0]?.evolves_to[0]?.species?.url?.slice(0, -1)?.replace("https://pokeapi.co/api/v2/pokemon-species/", "")
     
     const imageOne = leftFillNum( newOne , 3)
     const imageTwo = leftFillNum( newTwo , 3)
-    const imageThree = leftFillNum( newThree, 3)
+    const imageThree = leftFillNum( newThree , 3)
     //evolutions images id end
 
     const firstType = pokemon.types[0];
@@ -43,6 +43,7 @@ export const Evolutions = () => {
 
     const typeDisplay =  !evolution?.chain?.evolves_to[0]?.evolves_to[0]?.species?.name ? "none" : "flex";
     
+
     return (
         <div className="evolutions-page">
             <div className="pokemon-data">
