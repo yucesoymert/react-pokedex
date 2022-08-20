@@ -1,22 +1,47 @@
-import "./HomePage.css";
+import React, { useState } from "react";
 
-import React from "react";
+import "./HomePage.css";
+import searchIcon from '../../images/svg/search.svg';
 
 //components
 import { usePokemons } from "../../hooks/usePokemons";
 import PokemonCard from "../../component/PokemonCard/PokemonCard";
-import SearchBar from "../../component/SearchBar/SearchBar";
+import { useAllPokemon } from "../../hooks/useAllPokemon";
 
 const HomePage = () => {
 
   const { data, fetchNextPage } = usePokemons();
-  
+
+  const [ filter, setFilter ] = useState("")
+
+  const handleSearchChange = (e) => {
+      setFilter(e.target.value)
+  }
+
   return (
     <div className="homepage">
-      <SearchBar />
+      <div className="search-container">
+        <div className='search-inputs'>
+          <img src={searchIcon} className="search-ico" alt="ico" />
+          <input
+            onChange={handleSearchChange}
+            className="search-bar"
+            placeholder="Search for a Pokemon..."
+            variant="standart"
+            type="text"
+          >
+          </input>
+        </div>
+        <div className="btn">
+          <button className="search-btn" onClick={() => handleSearchChange()}>
+            Search
+          </button>
+        </div> 
+      </div>
       <div className="pokemon-list">
-        {data.map((p, index) => (
-          <PokemonCard key={index} pokemon={p} />
+        {data.map((p) => (
+          p.name.includes(filter) &&
+          <PokemonCard pokemon={p} />
         ))}
       </div>
       <div className="load-more">
