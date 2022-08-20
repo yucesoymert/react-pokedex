@@ -1,5 +1,7 @@
 const API_URL = 'https://pokeapi.co/api/v2/pokemon/'
 
+const ALL_POKE_API = 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
+
 const POKEMON_SPECIES_URL = "https://pokeapi.co/api/v2/pokemon-species/"
 
 const POKEMON_EVO_URL = "https://pokeapi.co/api/v2/evolution-chain/"
@@ -36,6 +38,7 @@ const POKEMON_THEME_COLORS ={
 
 export {
     API_URL,
+    ALL_POKE_API,
     POKEMON_SPECIES_URL,
     POKEMON_EVO_URL,
     POKEMON_IMAGE_URL,
