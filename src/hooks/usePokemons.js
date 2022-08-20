@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = 'https://pokeapi.co/api/v2/pokemon'
+import { API_URL } from '../global/constants';
 
 //will fetch the pokemon list
 export const usePokemons = () => {
@@ -23,11 +23,11 @@ export const usePokemons = () => {
 
         setCurrentPage(page)
     }
-
+    
     useEffect(() => {
         getPokemons(0)
     }, [])
-
+    
     const fetchNextPage = () => {
         getPokemons(currentPage+1)
     }

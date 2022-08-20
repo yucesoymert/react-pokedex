@@ -1,6 +1,6 @@
 import React from "react";
 
-const IMAGE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
+import { POKEMON_IMAGE_URL } from '../../../global/constants';
 
 const Pokemon = ({ pokemon}) => {
 
@@ -8,7 +8,7 @@ const Pokemon = ({ pokemon}) => {
 
     return (
         <div>
-            <img src={`${IMAGE_URL}${id}.png`}/>
+            <img src={`${POKEMON_IMAGE_URL}${id}.png`}/>
             {pokemon.name}
             <a href={`/details/${id}`}>details</a>
         </div>

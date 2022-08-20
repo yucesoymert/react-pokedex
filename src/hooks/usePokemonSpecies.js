@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const SPECIES_URL = "https://pokeapi.co/api/v2/pokemon-species/"
+import { POKEMON_SPECIES_URL } from '../global/constants';
 
 export const usePokemonSpecies = (id) => {
 
     const [data, setData] = useState(undefined);
     
     const getPokemonSpecies = async (pokemonId) => {
-        const response = await axios.get(`${SPECIES_URL}${pokemonId}`)
+        const response = await axios.get(`${POKEMON_SPECIES_URL}${pokemonId}`)
 
         setData(response.data)
     }
