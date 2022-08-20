@@ -92,11 +92,12 @@
 }
 
 .pokemon-name {
-    color: black;   
-    margin-top: 5px;
-    margin: 0px;
+    color: black;
     font-size: 1.6rem;
     font-weight: 600;
+    text-transform: capitalize;
+    margin: 0px;
+    margin-top: 5px;
 }
 
 .pokemon-types {

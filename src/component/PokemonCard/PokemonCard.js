@@ -1,31 +1,11 @@
 import './PokemonCard.css'
 import React from "react";
+
 import { usePokemon } from '../../hooks/usePokemon';
 
-const IMAGE_URL = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/"
+import { POKEMON_IMAGE_URL, POKEMON_TYPE_TO_COLOR } from '../../global/constants';
 
-const typeColors = {
-    grass: "rgb(138, 209, 102)",
-    poison: "rgb(160, 64, 160)",
-    fire: "rgb(245, 158, 95)",
-    water: "rgb(129, 207, 224)",
-    bug: "rgb(168, 184, 32)",
-    normal: "rgb(196, 196, 164)",
-    electric: "rgb(248, 208, 48)",
-    ground: "rgb(224, 192, 104)",
-    fairy: "rgb(238, 153, 172)",
-    fighting: "rgb(204, 67, 59)",
-    ice: "rgb(107, 192, 209)",
-    flying: "rgb(255, 148, 112)",
-    psychic: "rgb(248, 88, 136)",
-    rock: "rgb(184, 160, 56)",
-    ghost: "rgb(236, 178, 247)",
-    dragon: "rgb(112, 56, 248)",
-    dark: "rgb(112, 88, 72)",
-    steel: "rgb(184, 184, 208)"
-}
-
-const PokemonCard = ( {pokemon} ) => {
+const PokemonCard = ( {pokemon } ) => {
 
     const id = pokemon.url.slice(0, -1).replace("https://pokeapi.co/api/v2/pokemon/", "")
     const imageId = id.padStart(3, '0');
@@ -37,11 +17,7 @@ const PokemonCard = ( {pokemon} ) => {
     }
 
     const firstType = pokemonDetails.types[0];
-
-    const typeColor = typeColors[firstType.type.name] ? typeColors[firstType.type.name]: "white";
-
-    const pokemonName = pokemon.name;
-    const newPokemonName = pokemonName[0].toUpperCase() + pokemonName.substring(1);
+    const typeColor = POKEMON_TYPE_TO_COLOR[firstType.type.name] ? POKEMON_TYPE_TO_COLOR[firstType.type.name]: "white";
 
     return (
         <a className="card" href={`/details/${id}`} style={{
@@ -59,13 +35,13 @@ const PokemonCard = ( {pokemon} ) => {
                     <div className='pokemon-avatar'>
                         <div className='circle-card'></div>
                         <div className="pokemon-picture">
-                            <img src={`${IMAGE_URL}${imageId}.png`}/>
+                            <img src={`${POKEMON_IMAGE_URL}${imageId}.png`}/>
                         </div>
                     </div>
                 </div>
                 <div className="card-info">
                     <div className="pokemon-name">
-                        {newPokemonName}
+                        {pokemon.name}
                     </div>
                     <div className="pokemon-types">
                         <div style={{
@@ -77,7 +53,7 @@ const PokemonCard = ( {pokemon} ) => {
                                     textTransform:"uppercase",
                                     fontWeight:"600",
                                     fontSize: "0.9rem",
-                                    color: typeColors[type.type.name]
+                                    color: POKEMON_TYPE_TO_COLOR[type.type.name]
                                     }}>{type.type.name}
                                 </div>
                                 )
