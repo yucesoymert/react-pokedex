@@ -13,15 +13,44 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     width: 1248px;
     height: 650px;
+}
+
+.back-btn {
+    width: 1208px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-btn button {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    border: darkgray;
+    border-radius: 0.2rem;
+    appearance: none;
+    color: #F60B4A;
+    background-color: white;
+    transition: transform 250ms ease-in;
+    padding: 0.6rem 1.2rem;
+}
+
+.back-btn button:hover {
+    border: none;
+    transform: translateX(1px) translateY(-3px);
+    transition: transform 250ms ease-in;
+    box-shadow: -1px 2px 0.3rem darkgray;
+    color: white;
+    background-color: #F60B4A;
 }
 
 .right-side {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     border-radius: 0px 12px 12px 0px;
     background-color: white;
