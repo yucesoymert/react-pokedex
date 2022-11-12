@@ -7,7 +7,7 @@ This project is graduation project for Front-End Bootcamp.
 - [PokéAPI](https://pokeapi.co/)
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [CSS](https://css-tricks.com))
+- [CSS](https://css-tricks.com)
 
 ##Home Page
 
