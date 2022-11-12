@@ -2,6 +2,13 @@
 
 This project is graduation project for Front-End Bootcamp.
 
+## Built With
+
+- [PokéAPI](https://pokeapi.co/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [CSS](https://css-tricks.com))
+
 ##Home Page
 
 ![image](https://user-images.githubusercontent.com/96242012/185763658-48cfae74-9cd9-4d6f-8d9a-29e83e9d2303.png)
