@@ -70,3 +70,28 @@
 .text {
     color: #6d6d6d;
 }
+
+/* stacked layout (see PokemonDetailsPage.css) */
+@media only screen and (max-width: 1100px) {
+
+    .stats-page {
+        padding: 8px 32px 24px;
+    }
+}
+
+@media only screen and (max-width: 680px) {
+
+    .stats-page {
+        padding: 8px 20px 24px;
+    }
+
+    .stats {
+        grid-template-columns: 110px 36px 1fr;
+        grid-column-gap: 12px;
+        font-size: 0.9rem;
+    }
+
+    .empty-bar {
+        width: 100%;
+    }
+}
