@@ -67,22 +67,64 @@
 }
 
 .evo-avatar {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background-color: darkgray;
     z-index: 0;
     padding: 0;
     margin: 0;
 }
 
+/* type-colored disc on its own layer so only it fades, not the artwork */
+.evo-avatar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--type, darkgray);
+    opacity: 0.3;
+}
+
+.skeleton.evo-avatar::before {
+    content: none;
+}
+
+.evo-name-skel {
+    justify-self: center;
+    width: 80px;
+}
+
 .evo-avatar img {
+    position: relative;
     width: 95px;
     height: 95px;
     z-index: 5;
+    transition: transform 600ms var(--ease-out);
+}
+
+.evo-name {
+    transition: color 600ms var(--ease-out);
+}
+
+/* deepened like the type pills on the big card, so pastel types stay readable on white */
+.evo-context:hover .evo-name,
+.evo-context:focus-visible .evo-name {
+    color: color-mix(in srgb, var(--type) 70%, black);
+}
+
+.evo-context:hover .evo-avatar img,
+.evo-context:focus-visible .evo-avatar img {
+    transform: scale(1.15);
+}
+
+.evo-context:focus-visible {
+    outline: 2px solid #F60B4A;
+    outline-offset: 4px;
+    border-radius: 8px;
 }
 
 
@@ -95,14 +137,15 @@
     text-transform: uppercase;
 }
 
-.forward-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.forward-icon img {
+/* thin line arrow between stages, lifted to sit level with the avatars rather than the whole column */
+.evo-arrow {
+    flex: none;
     width: 40px;
-    height: 40px;
-    color: #242540;
+    height: 12px;
+    margin-bottom: 35px;
+    fill: none;
+    stroke: #C4C5D0;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
