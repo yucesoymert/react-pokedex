@@ -19,9 +19,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Header />
-    <Routes className="pokemon-container">
+    <Routes>
       <Route path="/" element={<App />}></Route>
-      <Route path="/details/:id/*" element={<PokemonDetailsPage />}>
+      <Route path="/details/:id" element={<PokemonDetailsPage />}>
+        <Route index element={<Biography />} />
         <Route path="biography" element={<Biography />} />
         <Route path="stats" element={<Stats />} />
         <Route path="evolutions" element={<Evolutions />} />

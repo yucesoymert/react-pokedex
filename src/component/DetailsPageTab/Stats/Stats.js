@@ -3,13 +3,14 @@ import { useParams } from 'react-router-dom';
 
 import "./Stats.css"
 
-import { usePokemon } from "../../../hooks/usePokemon";
+import { useFetch } from "../../../hooks/useFetch";
+import { API_URL } from "../../../global/constants";
 
 export const Stats = () => {
 
     const {id} = useParams()
 
-    const pokemon = usePokemon(id)
+    const pokemon = useFetch(`${API_URL}${id}`)
 
     if (!pokemon) {
         return null;
@@ -24,19 +25,16 @@ export const Stats = () => {
                 <div className="stats-container">
                     <div className="stats-context">{pokemon.stats.map( (stats) => {
                                     return (
-                                        <div className="stats">
+                                        <div key={stats.stat.name} className="stats">
                                             <div style={{textTransform: "uppercase"}} className="stat-name">{stats.stat.name}</div>
                                             <div className="stat-value">{stats.base_stat}</div>
                                             <div className="empty-bar">
-                                                    <div style={{width: `${(stats.base_stat/150)*100}%`}}  className="filled-bar"></div>
+                                                    <div style={{width: `${Math.min(stats.base_stat / 150, 1) * 100}%`}}  className="filled-bar"></div>
                                             </div>
                                         </div>
                                     )
                                 })}
                     </div>
-                </div>
-                <div className="text">
-                Min values are calculated for level 100 Pokemon. Minimum values are based on 0 EVs & 0 IVs.
                 </div>
             </div>
         </div>

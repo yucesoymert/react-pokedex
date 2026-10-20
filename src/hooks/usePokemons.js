@@ -1,41 +1,40 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 
 import { API_URL } from '../global/constants';
+import { getJson } from './useFetch';
 
-//will fetch the pokemon list
+const PAGE_SIZE = 45;
+
+// Paged Pokémon list for the home page.
 export const usePokemons = () => {
 
-    const [data, setData] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
-    
-    const getPokemons = async (page) => {
-        const response = await axios.get(API_URL, {params:{
-            limit: 45,
-            offset: page*45
-        }})
+    const [pages, setPages] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-        setData((previous) => {
-            const newData = [...previous]
-            newData[page] = response.data.results
-            return newData; 
-        })
-
-        setCurrentPage(page)
+    const getPage = async (page) => {
+        setLoading(true);
+        try {
+            const data = await getJson(`${API_URL}?limit=${PAGE_SIZE}&offset=${page * PAGE_SIZE}`);
+            setPages((previous) => {
+                const next = [...previous];
+                next[page] = data.results;
+                return next;
+            });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
     }
-    
+
     useEffect(() => {
-        getPokemons(0)
+        getPage(0)
     }, [])
-    
-    const fetchNextPage = () => {
-        getPokemons(currentPage+1)
-    }
 
     return {
-        data: [].concat(...data),
-        fetchNextPage: fetchNextPage,
-        currentPage: currentPage
+        data: pages.flat(),
+        // pages.length is the next page to load; blocked while a request is in flight so double clicks don't skip ahead
+        fetchNextPage: () => !loading && getPage(pages.length),
+        loading,
     }
-
 }

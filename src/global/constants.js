@@ -2,12 +2,14 @@ const API_URL = 'https://pokeapi.co/api/v2/pokemon/'
 
 const ALL_POKE_API = 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
 
-const POKEMON_SPECIES_URL = "https://pokeapi.co/api/v2/pokemon-species/"
+// The old HybridShivam image repo is gone (404); PokeAPI's own artwork covers every id, forms included.
+const imageUrl = (id) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
 
-const POKEMON_EVO_URL = "https://pokeapi.co/api/v2/evolution-chain/"
+// ".../pokemon/25/" or ".../pokemon-species/25/" -> "25"
+const idFromUrl = (url) => url.split('/').filter(Boolean).pop()
 
-const POKEMON_IMAGE_URL = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/"
-
+// PokeAPI text lists come in many languages, not in a fixed order.
+const english = (entries = []) => entries.find((e) => e.language.name === 'en')
 
 const POKEMON_TYPE_TO_COLOR = {
     grass: "rgb(138, 209, 102)",
@@ -30,18 +32,14 @@ const POKEMON_TYPE_TO_COLOR = {
     steel: "rgb(184, 184, 208)"
 }
 
-const POKEMON_THEME_COLORS ={
-    red: "#F60B4A",
-    gray: "#F6F6F6",
-    blue: "#242540"
-}
+const typeColor = (pokemon) => POKEMON_TYPE_TO_COLOR[pokemon.types[0].type.name] || "white"
 
 export {
     API_URL,
     ALL_POKE_API,
-    POKEMON_SPECIES_URL,
-    POKEMON_EVO_URL,
-    POKEMON_IMAGE_URL,
+    imageUrl,
+    idFromUrl,
+    english,
+    typeColor,
     POKEMON_TYPE_TO_COLOR,
-  };
-
+};

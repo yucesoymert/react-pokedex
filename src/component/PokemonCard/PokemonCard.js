@@ -1,33 +1,30 @@
 import './PokemonCard.css'
 import React from "react";
+import { Link } from 'react-router-dom';
 
-import { usePokemon } from '../../hooks/usePokemon';
+import { useFetch } from '../../hooks/useFetch';
 
-import { POKEMON_IMAGE_URL, POKEMON_TYPE_TO_COLOR } from '../../global/constants';
+import { imageUrl, idFromUrl, typeColor, POKEMON_TYPE_TO_COLOR } from '../../global/constants';
 
 const PokemonCard = ( { pokemon } ) => {
 
-    const id = pokemon.url.slice(0, -1).replace("https://pokeapi.co/api/v2/pokemon/", "")
-    const imageId = id.padStart(3, '0');
+    const id = idFromUrl(pokemon.url)
 
-    const pokemonDetails = usePokemon(id)
+    const pokemonDetails = useFetch(pokemon.url)
 
     if (!pokemonDetails) {
         return null;
     }
 
-    const firstType = pokemonDetails.types[0];
-    const typeColor = POKEMON_TYPE_TO_COLOR[firstType.type.name] ? POKEMON_TYPE_TO_COLOR[firstType.type.name]: "white";
-
     return (
-        <a className="card" href={`/details/${id}`} style={{
+        <Link className="card" to={`/details/${id}`} style={{
             appearance: "none",
             textDecoration: "none",
             color: "black"
         }}>
             <div className="card-wrapper" >
                 <div className="pokemon-image" style={{
-                        backgroundColor: typeColor
+                        backgroundColor: typeColor(pokemonDetails)
                          }} >
                     <div className="pokemon-index">
                             #{id}
@@ -35,7 +32,7 @@ const PokemonCard = ( { pokemon } ) => {
                     <div className='pokemon-avatar'>
                         <div className='circle-card'></div>
                         <div className="pokemon-picture">
-                            <img src={`${POKEMON_IMAGE_URL}${imageId}.png`}/>
+                            <img src={imageUrl(id)} alt={pokemon.name} loading="lazy"/>
                         </div>
                     </div>
                 </div>
@@ -49,7 +46,7 @@ const PokemonCard = ( { pokemon } ) => {
                                 gap: "0.6rem"
                             }}>{pokemonDetails.types.map( (type) => {
                             return (
-                                <div className="pokemon-type" style={{
+                                <div key={type.type.name} className="pokemon-type" style={{
                                     textTransform:"uppercase",
                                     fontWeight:"600",
                                     fontSize: "0.9rem",
@@ -61,7 +58,7 @@ const PokemonCard = ( { pokemon } ) => {
                     </div>
                 </div>
             </div>
-        </a>
+        </Link>
     )
 }
 
