@@ -59,6 +59,12 @@
     width: 100%;
     border-radius: 75px;
     background-color: #F60B4A;
+    /* width is set inline; this grows it from 0. Duration matches FILL_MS in Stats.js */
+    animation: bar-fill 700ms var(--ease-out) both;
+}
+
+@keyframes bar-fill {
+    from { width: 0; }
 }
 
 .text {
