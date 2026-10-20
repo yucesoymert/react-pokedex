@@ -26,7 +26,7 @@ const PokemonCard = ( { pokemon } ) => {
                 <div className="pokemon-image" style={{
                         backgroundColor: typeColor(pokemonDetails)
                          }} >
-                    <div className="pokemon-index">
+                    <div className="pokemon-index" style={{ "--chars": `#${id}`.length }}>
                             #{id}
                     </div>
                     <div className='pokemon-avatar'>

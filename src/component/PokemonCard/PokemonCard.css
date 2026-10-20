@@ -41,11 +41,13 @@
     justify-content: center;
     align-items: center;
     font-weight: 600;
-    font-size: 4.2rem;
+    /* full size up to "#151"; long form ids ("#10164") shrink to fit ~300px (a digit is ~0.72em + 10px spacing) */
+    font-size: min(4.2rem, calc((300px / var(--chars) - 10px) / 0.72));
     z-index: 4;
     top: 9px;
-    right: 80px;
-    letter-spacing: 10px; 
+    left: 0;
+    right: 0;
+    letter-spacing: 10px;
     pointer-events: none;
     color: rgba(0,0,0, 0.4);   
 }
@@ -132,6 +134,7 @@
     .pokemon-index {
         font-size: 1.2rem;
         top: 5px;
+        left: auto;
         right: 5px;
         letter-spacing: 4px; 
     }
@@ -157,6 +160,7 @@
     .pokemon-index {
         font-size: 1.2rem;
         top: 5px;
+        left: auto;
         right: 5px;
         letter-spacing: 4px; 
     }

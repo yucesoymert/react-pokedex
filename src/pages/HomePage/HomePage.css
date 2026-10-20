@@ -43,98 +43,209 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* ---- search: the top casing of a Pokédex ---- */
+
 .search-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 20px;
-    margin: 40px 250px;
-    padding: 0px 100px;
+    gap: 14px;
+    width: min(680px, calc(100% - 32px));
+    margin: 32px auto;
+    padding: 10px 12px 14px;
+    border-radius: 18px;
+    background-color: #F60B4A;
+    /* darker lower lip reads as a molded casing */
+    box-shadow: inset 0 -4px 0 #C4073A, 0 6px 16px rgba(36, 37, 64, 0.15);
 }
+
+.dex-lights {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    flex: none;
+}
+
+.dex-lens {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 3px solid white;
+    background: radial-gradient(circle at 35% 30%, #CDEBFF 0 12%, #3D9BE9 40%, #1A5EA8 100%);
+    box-shadow: 0 0 0 2px #242540;
+    transition: box-shadow 300ms var(--ease-out), filter 300ms var(--ease-out);
+    filter: saturate(0.7) brightness(0.9);
+}
+
+.dex-led {
+    width: 10px;
+    height: 10px;
+    margin-top: 2px;
+    border-radius: 50%;
+    border: 1.5px solid #242540;
+    opacity: 0.45;
+    transition: opacity 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+}
+
+.dex-led.red { background-color: #FF6B6B; }
+.dex-led.yellow { background-color: #FFD43B; }
+.dex-led.green { background-color: #51CF66; }
+
+/* typing in the screen powers the device on: lens glows, lights come on one after another */
+.search-container:focus-within .dex-lens {
+    filter: none;
+    box-shadow: 0 0 0 2px #242540, 0 0 14px 4px rgba(120, 200, 255, 0.85);
+}
+
+.search-container:focus-within .dex-led {
+    opacity: 1;
+    box-shadow: 0 0 6px 1px currentColor;
+}
+
+.dex-led.red { color: #FF6B6B; }
+.dex-led.yellow { color: #FFD43B; transition-delay: 80ms; }
+.dex-led.green { color: #51CF66; transition-delay: 160ms; }
 
 .search-inputs {
     display: flex;
-    justify-content: flex;
-    align-items:center;
-    gap: 10px;
-    color: black;
-    background-color: rgba(222,222,222);
-    border: none;
-    border-radius: 0.5rem;
-    appearance: none;
-    overflow: visible;   
-    font-weight: 500;
-    padding: 0px 10px;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+    padding: 0 12px;
+    border: 2px solid #242540;
+    border-radius: 10px;
+    background-color: #F4F6FA;
+    box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.06);
+    transition: box-shadow 200ms var(--ease-out);
+}
+
+/* the focus ring sits on the whole screen, not the bare input (the browser's ring was offset and clipped) */
+.search-container:focus-within .search-inputs {
+    box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.06), 0 0 0 3px white;
 }
 
 .search-bar {
-    width: 400px;
-    max-width: 600px;
-    color: black;
-    font-size: 0.9rem;
+    flex: 1;
+    min-width: 0;
+    color: #242540;
+    /* 16px keeps iOS from zooming in on focus */
+    font-size: 1rem;
     font-weight: 500;
     border: none;
-    background-color: rgba(222,222,222);
-    padding: 10px;
+    outline: none;
+    background: transparent;
+    padding: 12px 0;
 }
 
 .search-bar::placeholder {
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-.search-btn {
-    width: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-weight: 500;
-    border: none;
-    appearance: none;
-    border-radius: 0.2rem;
-    transition: transform 250ms ease-in;
-    color: white;
-    background-color: #242540;
-    padding: 0.5rem 3rem;
-}
-
-.search-btn:hover {
-    transform: translateX(1px) translateY(-4px);
-    transition: transform 250ms ease-in;
-    box-shadow: -2px 3px 0.5rem darkgray;
-    background-color: #F60B4A;
+    color: #8A8CA0;
+    font-size: 0.9rem;
 }
 
 .search-ico {
-    width: 20px;
-    height: 20px;
-    opacity: 0.6;
-    color: darkgray;
+    width: 18px;
+    height: 18px;
+    opacity: 0.5;
+}
+
+.search-btn {
+    flex: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    background-color: #242540;
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.35);
+    padding: 0.8rem 1.4rem;
+    cursor: pointer;
+    transition: background-color 200ms var(--ease-out);
+}
+
+.search-btn:hover {
+    background-color: #36385E;
+}
+
+.search-btn:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 2px;
+}
+
+/* ---- no results ---- */
+
+.no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 16px 64px;
+    color: #242540;
+    animation: fade-in 300ms var(--ease-out) both;
+}
+
+.split-ball {
+    width: 150px;
+    margin-bottom: 8px;
+}
+
+.split-ball path {
+    stroke: #242540;
+    stroke-width: 4;
+    stroke-linejoin: round;
+}
+
+.ball-top path { fill: #F60B4A; }
+.ball-bottom path { fill: #E9EBF2; }
+.split-ball .ball-button { fill: white; }
+.ball-shadow { fill: #E3E5EC; }
+
+/* the lid hinges on its left edge and hovers open */
+.ball-top {
+    transform-origin: 12px 50px;
+    transform: rotate(-16deg) translateY(-10px);
+    animation: lid-float 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes lid-float {
+    to { transform: rotate(-20deg) translateY(-16px); }
+}
+
+.no-results h2 {
+    margin: 0 0 6px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.no-results p {
+    margin: 0 0 20px;
+    color: #7e7e7e;
+}
+
+.clear-btn {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #242540;
+    border: 2px solid #242540;
+    border-radius: 999px;
+    background: transparent;
+    padding: 0.55rem 1.4rem;
+    cursor: pointer;
+    transition: color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+}
+
+.clear-btn:hover,
+.clear-btn:focus-visible {
+    color: white;
+    background-color: #242540;
+}
+
+.clear-btn:focus-visible {
+    outline: 3px solid #F60B4A;
+    outline-offset: 2px;
 }
 
 @media only screen and (min-width: 680px ) and (max-width: 960px) {
-
-    .home-page {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .search-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        margin: 40px 50px;
-        padding: 0px 10px;
-    }
-
-    .search-bar {
-        width: 180px;
-        font-size: 0.8rem;
-        font-weight: 500;
-    }
 
     .pokemon-list {
         padding-top: 20px;
@@ -142,7 +253,7 @@
         grid-template-rows: minmax(180px, auto);
         grid-column-gap: 40px;
     }
-   
+
     .load-more {
         margin: 25px 0px;
     }
@@ -150,34 +261,36 @@
 
   @media only screen and (max-width: 680px) {
 
-    .home-page {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
     .search-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         gap: 10px;
-        margin: 40px 50px;
-        padding: 0px 10px;
-    }
-
-    .search-bar {
-        width: 180px;
-        font-size: 0.8rem;
-        font-weight: 500;
+        margin: 20px auto;
     }
 
     .pokemon-list {
-        padding-top: 20px;
+        padding-top: 10px;
         grid-template-columns: 260px;
         grid-template-rows: minmax(180px, auto);
     }
-   
+
     .load-more {
         margin: 25px 0px;
+    }
+  }
+
+  @media only screen and (max-width: 420px) {
+
+    /* keep the lens, drop the small lights and the icon so the screen keeps room to type */
+    .dex-led,
+    .search-ico {
+        display: none;
+    }
+
+    .dex-lens {
+        width: 36px;
+        height: 36px;
+    }
+
+    .search-btn {
+        padding: 0.8rem 1rem;
     }
   }
