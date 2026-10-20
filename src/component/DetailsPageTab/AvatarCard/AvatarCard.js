@@ -2,7 +2,8 @@ import './AvatarCard.css'
 
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../../../hooks/useFetch';
-import { API_URL, imageUrl, typeColor } from '../../../global/constants';
+import { motion } from 'framer-motion';
+import { API_URL, EASE_OUT, imageUrl, typeColor, POKEMON_TYPE_TO_COLOR } from '../../../global/constants';
 
 const AvatarCard = () => {
 
@@ -13,7 +14,11 @@ const AvatarCard = () => {
     const pokemonSpecies = useFetch(pokemon?.species.url)
 
     if (!pokemon) {
-        return null;
+        return (
+            <div className='left-side' aria-busy="true">
+                <div className="avatar-container skeleton" />
+            </div>
+        );
     }
 
     return (
@@ -35,13 +40,17 @@ const AvatarCard = () => {
                     </div>
                     <div className='pokemon-pictures'>
                         <div className='circle'></div>
-                        <img src={imageUrl(id)} alt={pokemon.name}/>
+                        {/* keyed by id so switching Pokémon (evolution links) replays the entrance */}
+                        <motion.img key={id} src={imageUrl(id)} alt={pokemon.name}
+                            initial={{ opacity: 0, scale: 0.94 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.35, ease: EASE_OUT }} />
                     </div>
                 </div>
                 <div className="pokemon-types">
                         {pokemon.types.map( (type) => {
                             return (
-                                <div key={type.type.name} className='pokemon-type'>{type.type.name}</div>
+                                <div key={type.type.name} className='pokemon-type' style={{ "--type": POKEMON_TYPE_TO_COLOR[type.type.name] }}>{type.type.name}</div>
                                 )
                             })}
                 </div>
