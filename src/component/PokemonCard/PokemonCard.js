@@ -13,7 +13,7 @@ const PokemonCard = ( { pokemon } ) => {
     const pokemonDetails = useFetch(pokemon.url)
 
     if (!pokemonDetails) {
-        return null;
+        return <div className="card-wrapper skeleton" aria-hidden="true" />;
     }
 
     return (

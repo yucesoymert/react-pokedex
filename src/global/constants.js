@@ -34,7 +34,11 @@ const POKEMON_TYPE_TO_COLOR = {
 
 const typeColor = (pokemon) => POKEMON_TYPE_TO_COLOR[pokemon.types[0].type.name] || "white"
 
+// same curve as --ease-out in index.css
+const EASE_OUT = [0.22, 1, 0.36, 1]
+
 export {
+    EASE_OUT,
     API_URL,
     ALL_POKE_API,
     imageUrl,

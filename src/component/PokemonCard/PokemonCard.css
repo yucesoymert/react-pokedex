@@ -11,6 +11,8 @@
 .card {
     border-radius: 12px;
     transition: transform 250ms ease-in;
+    /* ponytail: no per-index stagger, cards already arrive one by one as their fetches resolve */
+    animation: fade-in 250ms var(--ease-out) both;
 }
 
 .card:hover {

@@ -2,12 +2,17 @@ import { useState, useEffect } from "react";
 
 // ponytail: unbounded in-memory cache; fine for ~1,400 Pokémon, swap for an LRU if it ever grows.
 const cache = new Map();
+// settled responses, so a revisit renders on the first pass instead of flashing the loading state
+const settled = new Map();
 
 export const getJson = (url) => {
     if (!cache.has(url)) {
         cache.set(url, fetch(url).then((res) => {
             if (!res.ok) throw new Error(`${res.status} ${url}`);
             return res.json();
+        }).then((data) => {
+            settled.set(url, data);
+            return data;
         }).catch((err) => {
             cache.delete(url); // let a later render retry
             throw err;
@@ -29,5 +34,5 @@ export const useFetch = (url) => {
         return () => { current = false; };
     }, [url]);
 
-    return state.url === url ? state.data : undefined;
+    return state.url === url ? state.data : settled.get(url);
 };

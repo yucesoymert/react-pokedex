@@ -3,9 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 
 import './Evolutions.css'
 
-//svg
-import forward from '../../../images/svg/forward.svg';
-
 //hooks
 import { useFetch } from "../../../hooks/useFetch";
 
@@ -23,6 +20,25 @@ export const evolutionStages = (chain) => {
     return stages;
 };
 
+const Arrow = () => (
+    <svg className="evo-arrow" viewBox="0 0 40 12" role="img" aria-label="evolves into">
+        <path d="M1 6h37M33 1l5 5-5 5" />
+    </svg>
+);
+
+// each stage in its own primary type color (Eevee's branches differ); the viewed Pokémon's color until that loads
+const EvoLink = ({ id, name, fallbackColor }) => {
+    const pokemon = useFetch(`${API_URL}${id}`);
+    return (
+        <Link className="evo-context" to={`/details/${id}/evolutions`} style={{ "--type": pokemon ? typeColor(pokemon) : fallbackColor }}>
+            <div className="evo-avatar">
+                <img src={imageUrl(id)} alt={name} loading="lazy" />
+            </div>
+            <div className="evo-name">{name}</div>
+        </Link>
+    );
+};
+
 export const Evolutions = () => {
 
     const {id} = useParams()
@@ -31,7 +47,26 @@ export const Evolutions = () => {
     const evolution = useFetch(species?.evolution_chain?.url)
 
     if (!pokemon || !evolution) {
-        return null;
+        return (
+            <div className="evolutions-page" aria-busy="true">
+                <div className="pokemon-data">
+                    <div className="pokemon-text">
+                        <h2 className="title">Evolution Chain</h2>
+                    </div>
+                    <div className="evo-container">
+                        {[0, 1, 2].map((i) => (
+                            <Fragment key={i}>
+                                {i > 0 && <Arrow />}
+                                <div className="evo-context">
+                                    <div className="skeleton evo-avatar" />
+                                    <span className="skeleton skeleton-text evo-name-skel" />
+                                </div>
+                            </Fragment>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     const stages = evolutionStages(evolution.chain);
@@ -48,19 +83,10 @@ export const Evolutions = () => {
                     {stages.map((stage, i) => (
                         <Fragment key={i}>
                             {i > 0 && (
-                                <div className="forward-icon">
-                                    <img src={forward} alt="evolves into" />
-                                </div>
+                                <Arrow />
                             )}
                             <div className={stage.length > 1 ? "evo-stage evo-branch" : "evo-stage"} style={{ "--cols": Math.min(stage.length, 3) }}>
-                                {stage.map((p) => (
-                                    <Link key={p.id} className="evo-context" to={`/details/${p.id}/evolutions`}>
-                                        <div className="evo-avatar" style={{ backgroundColor: color }}>
-                                            <img src={imageUrl(p.id)} alt={p.name} loading="lazy" />
-                                        </div>
-                                        <div className="evo-name">{p.name}</div>
-                                    </Link>
-                                ))}
+                                {stage.map((p) => <EvoLink key={p.id} {...p} fallbackColor={color} />)}
                             </div>
                         </Fragment>
                     ))}

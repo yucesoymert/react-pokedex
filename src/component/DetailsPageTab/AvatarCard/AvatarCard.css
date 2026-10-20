@@ -19,6 +19,7 @@
     pointer-events: none;
     width: 100%;
     height: 100%;
+    transition: background-color 400ms var(--ease-out);
 }
 
 .name-tag {
@@ -71,10 +72,11 @@
     z-index: 3;
 }
 
+/* artwork shrinks with the card on short screens (card height = 100vh - 140px, minus ~250px of text) */
 .circle {
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: min(300px, calc(100vh - 390px));
+    height: min(300px, calc(100vh - 390px));
     border-radius: 50%;
     bottom: 15px;
     z-index: 2;
@@ -82,8 +84,8 @@
 }
 
 .pokemon-pictures img {
-    width: 300px;
-    height: 300px;
+    width: min(300px, calc(100vh - 390px));
+    height: min(300px, calc(100vh - 390px));
     z-index: 6;
 }
 
@@ -94,9 +96,19 @@
     gap: 1rem;
 }
 
-.pokemon-type {
-    font-size: 1.3rem;
-    font-weight: 600;
-    text-transform: uppercase;
+/* game-style type badge: filled with the type's color (--type, set inline), white ring + dark outline so it
+   stands apart even on a card of the same color (grass on grass). Scoped: the home cards use .pokemon-type too */
+.avatar-container .pokemon-type {
     color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    /* keeps white text legible on light types (electric, ice) */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+    padding: 0.3rem 1.1rem;
+    border: 2px solid white;
+    border-radius: 999px;
+    background: linear-gradient(var(--type), color-mix(in srgb, var(--type) 75%, black));
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.55);
 }
