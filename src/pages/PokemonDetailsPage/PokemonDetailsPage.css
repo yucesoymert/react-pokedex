@@ -5,16 +5,17 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    padding: 40px;
+    padding: 16px 40px;
     font-family: 'Montserrat', sans-serif;
 }
 
+/* fits a laptop screen: viewport minus header (54), page padding (2×16), back button (~38) and its gap (12) */
 .detail-card {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 1248px;
-    height: 650px;
+    height: clamp(540px, calc(100vh - 140px), 650px);
 }
 
 .back-btn {
@@ -22,29 +23,35 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .back-btn button {
     text-align: center;
     font-size: 1rem;
     font-weight: 600;
-    border: darkgray;
-    border-radius: 0.2rem;
+    border: none;
+    border-radius: 0 0.2rem 0.2rem 0;
     appearance: none;
     color: #F60B4A;
     background-color: white;
-    transition: transform 250ms ease-in;
-    padding: 0.6rem 1.2rem;
+    transition: color 250ms ease-in, background-color 250ms ease-in;
+    /* arrow-shaped left edge; extra left padding keeps the text clear of the point */
+    clip-path: polygon(16px 0, 100% 0, 100% 100%, 16px 100%, 0 50%);
+    padding: 0.6rem 1.2rem 0.6rem 1.8rem;
+    cursor: pointer;
 }
 
-.back-btn button:hover {
-    border: none;
-    transform: translateX(1px) translateY(-3px);
-    transition: transform 250ms ease-in;
-    box-shadow: -1px 2px 0.3rem darkgray;
+.back-btn button:hover,
+.back-btn button:focus-visible {
     color: white;
     background-color: #F60B4A;
+    outline: none;
+}
+
+/* clip-path cuts off box-shadow, so the shadow is drawn around the clipped shape from the wrapper */
+.back-btn:has(button:hover, button:focus-visible) {
+    filter: drop-shadow(-1px 2px 3px rgba(0, 0, 0, 0.3));
 }
 
 .right-side {
@@ -55,7 +62,10 @@
     border-radius: 0px 12px 12px 0px;
     background-color: white;
     width: 748px;
-    height: 650px;
+    height: 100%;
+    /* ponytail: on very short screens the tab scrolls inside the card; x hidden so the tab slide never adds a scrollbar */
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .nav-bar{
@@ -63,7 +73,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 25px auto 25px auto;
+    margin: 20px auto 16px auto;
     gap: 20px
 }
 
@@ -87,10 +97,10 @@
     position: absolute;
     width: 100%;
     transform: scaleY(0);
-    height: 2.5px;
+    height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #F60B4A;
+    background-color: rgba(246, 11, 74, 0.3);
     transform-origin: bottom;
     transition: transform 0.25s ease-in; 
 }
@@ -104,7 +114,31 @@
 
 .active {
     font-weight: 600;
-    border-bottom: 3px solid #F60B4A;
+}
+
+/* the active tab already has the sliding underline; a hover line on top of it looked doubled */
+.nav-item.active:after {
+    display: none;
+}
+
+/* animated wrapper around the tab content; full width so every tab starts at the same left edge (their 70px padding) */
+.tab-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+}
+
+/* the active tab's underline; framer slides it between tabs (layoutId) */
+.tab-underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background-color: #F60B4A;
 }
 
 .info-container {

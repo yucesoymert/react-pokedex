@@ -12,3 +12,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* placeholder block shown while data loads; same track grey as the stat bars */
+.skeleton {
+  border-radius: 8px;
+  background: linear-gradient(90deg, #F1F2F7 30%, #F8F9FC 50%, #F1F2F7 70%) 0 0 / 300% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+/* a line of text that hasn't arrived yet; set its width inline */
+.skeleton-text {
+  display: block;
+  height: 0.9em;
+  margin: 0.25em 0;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  to { background-position: -150% 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
