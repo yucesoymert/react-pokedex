@@ -1,33 +1,29 @@
 import './AvatarCard.css'
 
 import { useParams } from 'react-router-dom';
-import { usePokemon } from '../../../hooks/usePokemon';
-import { usePokemonSpecies } from '../../../hooks/usePokemonSpecies';
-import { POKEMON_IMAGE_URL, POKEMON_TYPE_TO_COLOR } from '../../../global/constants';
+import { useFetch } from '../../../hooks/useFetch';
+import { API_URL, imageUrl, typeColor } from '../../../global/constants';
 
 const AvatarCard = () => {
 
     const {id} = useParams()
-    const imageId = id.padStart(3, '0');
 
-    const pokemon = usePokemon(id)
-    const pokemonSpecies  = usePokemonSpecies(id)
+    const pokemon = useFetch(`${API_URL}${id}`)
+    // species by its own url: alternate forms (id 10001+) have no /pokemon-species/{id}
+    const pokemonSpecies = useFetch(pokemon?.species.url)
 
     if (!pokemon) {
         return null;
     }
 
-    const firstType = pokemon.types[0];
-    const typeColor = POKEMON_TYPE_TO_COLOR[firstType.type.name] ? POKEMON_TYPE_TO_COLOR[firstType.type.name]: "white";
-
     return (
         <div className='left-side'>
             <div className="avatar-container" style={{
-                    backgroundColor: typeColor
+                    backgroundColor: typeColor(pokemon)
                     }}>
                 <div className="name-tag">
                     <div className="pokemon-number">
-                        #{imageId}
+                        #{id.padStart(3, '0')}
                     </div>
                     <div className="poke-name">
                         {pokemon.name}
@@ -35,17 +31,17 @@ const AvatarCard = () => {
                 </div>
                 <div className="middle-card">
                     <div className='name-other'>
-                        {pokemonSpecies?.names[0]?.name}
+                        {pokemonSpecies?.names.find((n) => n.language.name === 'ja-Hrkt')?.name}
                     </div>
                     <div className='pokemon-pictures'>
                         <div className='circle'></div>
-                        <img src={`${POKEMON_IMAGE_URL}${imageId}.png`} alt="pokemon_picture"/>
+                        <img src={imageUrl(id)} alt={pokemon.name}/>
                     </div>
                 </div>
                 <div className="pokemon-types">
                         {pokemon.types.map( (type) => {
                             return (
-                                <div className='pokemon-type'>{type.type.name}</div>
+                                <div key={type.type.name} className='pokemon-type'>{type.type.name}</div>
                                 )
                             })}
                 </div>
@@ -55,5 +51,3 @@ const AvatarCard = () => {
 }
 
 export default AvatarCard;
-
-
